@@ -4,6 +4,7 @@ import TitledGreyBox from "@/components/elements/TitledGreyBox";
 import { Form, Formik, FormikHelpers, useFormikContext } from "formik";
 import { Actions, useStoreActions } from "easy-peasy";
 import renameServer from "@/api/server/renameServer";
+import notesServer from "@/api/server/notesServer";
 import { object, string } from "yup";
 import SpinnerOverlay from "@/components/elements/SpinnerOverlay";
 import { ApplicationStore } from "@/state";
@@ -51,7 +52,7 @@ export default () => {
     { setSubmitting }: FormikHelpers<Values>
   ) => {
     clearFlashes("settings");
-    renameServer(server.uuid, notes, "notes")
+    notesServer(server.uuid, notes)
       .then(() => setServer({ ...server, notes }))
       .catch((error) => {
         console.error(error);

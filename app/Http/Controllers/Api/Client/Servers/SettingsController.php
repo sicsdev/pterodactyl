@@ -10,6 +10,7 @@ use Pterodactyl\Services\Servers\ReinstallServerService;
 use Pterodactyl\Http\Controllers\Api\Client\ClientApiController;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Pterodactyl\Http\Requests\Api\Client\Servers\Settings\RenameServerRequest;
+use Pterodactyl\Http\Requests\Api\Client\Servers\Settings\NotesServerRequest;
 use Pterodactyl\Http\Requests\Api\Client\Servers\Settings\SetDockerImageRequest;
 use Pterodactyl\Http\Requests\Api\Client\Servers\Settings\ReinstallServerRequest;
 
@@ -48,16 +49,18 @@ class SettingsController extends ClientApiController
      */
     public function rename(RenameServerRequest $request, Server $server)
     {
-        if($request->input('type') == "notes") {
-            $this->repository->update($server->id, [
-                'notes' => $request->input('name'),
-            ]);
-        }
-        else if($request->input('type') == "name") {
-            $this->repository->update($server->id, [
-                'name' => $request->input('name'),
-            ]);            
-        }
+        $this->repository->update($server->id, [
+            'name' => $request->input('name'),
+        ]);
+
+        return new JsonResponse([], Response::HTTP_NO_CONTENT);
+    }
+
+    public function notes(RenameServerRequest $request, Server $server)
+    {
+        $this->repository->update($server->id, [
+            'notes' => $request->input('name'),
+        ]);
 
         return new JsonResponse([], Response::HTTP_NO_CONTENT);
     }

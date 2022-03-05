@@ -46,7 +46,7 @@ export default () => {
 
     const submit = ({ name }: Values, { setSubmitting }: FormikHelpers<Values>) => {
         clearFlashes('settings');
-        renameServer(server.uuid, name, 'name')
+        renameServer(server.uuid, name)
             .then(() => setServer({ ...server, name }))
             .catch(error => {
                 console.error(error);

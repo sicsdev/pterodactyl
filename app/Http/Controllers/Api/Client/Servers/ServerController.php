@@ -43,7 +43,6 @@ class ServerController extends ClientApiController
             ->addMeta([
                 'is_server_owner' => $request->user()->id === $server->owner_id,
                 'user_permissions' => $this->permissionsService->handle($server, $request->user()),
-                'notes' => $server->notes,
             ])
             ->toArray();
     }
