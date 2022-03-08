@@ -68,7 +68,7 @@ export default () => {
         notes: server.notes,
       }}
       validationSchema={object().shape({
-        notes: string().required().min(1),
+        notes: string().required().min(1).max(500),
       })}
     >
       <NotesServerBox />
